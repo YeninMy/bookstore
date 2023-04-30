@@ -5,6 +5,8 @@
 </head>
 <body>
 <h1>My Book Collection</h1>
+<br>
+<a href="/registration" class="btn btn-primary">Registration</a>
 <table>
     <thead>
     <tr>

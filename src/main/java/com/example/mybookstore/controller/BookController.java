@@ -20,7 +20,6 @@ public class BookController {
 
     @GetMapping("/")
     public String getAllBooks(Model model) {
-//        bookService.addPreparedListOfBooks();
         List<Book> books = bookService.getAllBooks();
         model.addAttribute("books", books);
         return "books";
