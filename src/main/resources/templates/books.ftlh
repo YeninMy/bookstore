@@ -2,6 +2,11 @@
 <html xmlns:ftl="http://www.freemarker.org">
 <head>
     <title>My Book Collection</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 </head>
 <body>
 <h1>My Book Collection</h1>
@@ -20,10 +25,11 @@
         <tr>
             <td>${book.name}</td>
             <td>${book.author.name}</td>
-            <td>${book.genre}</td>
+            <td><a href="/books/genre/${book.genre}">${book.genre.getDisplayName()}</a></td>
         </tr>
     </#list>
     </tbody>
 </table>
+
 </body>
 </html>

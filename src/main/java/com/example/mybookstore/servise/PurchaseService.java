@@ -1,6 +1,5 @@
 package com.example.mybookstore.servise;
 
-import com.example.mybookstore.repository.PersonRepo;
 import com.example.mybookstore.repository.PurchaseRepo;
 import org.springframework.stereotype.Service;
 

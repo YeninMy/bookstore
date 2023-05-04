@@ -5,7 +5,7 @@ import com.example.mybookstore.entity.Author;
 import com.example.mybookstore.entity.Book;
 import com.example.mybookstore.entity.Genre;
 import com.example.mybookstore.servise.BookService;
-import jakarta.annotation.PostConstruct;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class DataLoader {
     }
 
     @PostConstruct
-    public void addPreparedListOfBooks(){
+    public void addPreparedListOfBooks() {
         bookService.saveBook(new Book("Dune", new Author("Frank Herbert"), Genre.SCIENCE_FICTION));
         bookService.saveBook(new Book("1984", new Author("George Orwell"), Genre.SCIENCE_FICTION));
         bookService.saveBook(new Book("Brave New World", new Author("Aldous Huxley"), Genre.SCIENCE_FICTION));
@@ -40,7 +40,6 @@ public class DataLoader {
         bookService.saveBook(new Book("It", new Author("Stephen King"), Genre.HORROR));
         bookService.saveBook(new Book("The Great Gatsby", new Author("F. Scott Fitzgerald"), Genre.HISTORICAL_FICTION));
         bookService.saveBook(new Book("To Kill a Mockingbird", new Author("Harper Lee"), Genre.HISTORICAL_FICTION));
-
+        bookService.updateBookPrice(1,12.35);
     }
-
 }

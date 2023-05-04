@@ -1,6 +1,6 @@
 package com.example.mybookstore.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
