@@ -4,16 +4,17 @@
     <title>My Book Collection</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
+<#assign user = Session.SPRING_SECURITY_CONTEXT??>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">MYBookstore</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -25,11 +26,17 @@
                     <a class="nav-link" aria-current="page" href="/basket">Basket</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/registration" role="button" data-bs-toggle="dropdown" aria-expanded="false">Profile</a>
+                    <a class="nav-link dropdown-toggle" href="/profile" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">Profile</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <#if user>
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <#else>
+                            <li><a class="dropdown-item" href="/login">Login</a></li>
+                            <li><a class="dropdown-item" href="/registration">Registration</a></li>
+                        </#if>
+                        <#--                        <li><hr class="dropdown-divider"></li>-->
                     </ul>
                 </li>
             </ul>
@@ -38,11 +45,46 @@
 </nav>
 <h1>MY</h1>
 <h2>bookstore</h2>
+
 <form class="d-flex" role="search">
     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 
 
+<#if user>
+    <h1>Welcome, Book for you!!!</h1>
+
+<#else>
+    <h1>Welcome, guest!</h1>
+</#if>
+<#--<h2>Add a new book</h2>-->
+<#--<form action="/add-book" method="post">-->
+<#--    <label for="name">Name:</label>-->
+<#--    <input type="text" name="name" id="name" required><br>-->
+
+<#--    <button type="submit">Add book</button>-->
+<#--</form>-->
+<div id="random-book">
+    <h2><a href="/books/book/${book.id}">${book.name}</a></h2>
+    <div class="image-container">
+        <#if book.coverImage?has_content>
+            <img src="/images/${book.getCoverImage()}" alt="book cover image" style="height: 300px">
+        <#else>
+            <img src="/images/placeholder-image.jpg" alt="Заглушка обложки книги" style="height: 300px">
+        </#if>
+    </div>
+    <p>${book.author.name}</p>
+    <p><a href="/books/genre/${book.genre}">${book.genre.getDisplayName()}</a></p>
+
+    <button onclick="location.reload()" id="update-book">Update book</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
 </body>
 </html>

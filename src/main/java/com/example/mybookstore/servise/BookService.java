@@ -6,6 +6,7 @@ import com.example.mybookstore.repository.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class BookService {
@@ -33,9 +34,15 @@ public class BookService {
         book.setPrice(newPrice);
         return bookRepo.save(book);
     }
-
     public List<Book> getBooksByGenre(Genre genre) {
         return bookRepo.findAllByGenre(genre);
+    }
+
+    public Book getRandomBook() {
+        List<Book> books = bookRepo.findAll();
+        Random random = new Random();
+        int randomIndex = random.nextInt(books.size());
+        return books.get(randomIndex);
     }
 }
 

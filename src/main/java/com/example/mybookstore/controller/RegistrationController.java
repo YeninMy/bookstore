@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String AddPerson(@Valid Person person,
                             BindingResult bindingResult,
-                            Model model){
+                            Model model, @RequestParam("confirm-password") String confirmPassword){
         if (bindingResult.hasErrors()){
             model.addAttribute("errorUsername","User name can't be empty");
             return "registration";
@@ -40,8 +41,13 @@ public class RegistrationController {
             model.addAttribute("errorEmail","Email is not valid or already exists");
             return "registration";
         }
-
+        if (!person.getPassword().equals(confirmPassword)) {
+            model.addAttribute("errorPassword", "Passwords do not match");
+            return "registration";
+        }
         personService.savePerson(person);
-        return "redirect:/";
+        return "redirect:/login";
     }
+
+
 }

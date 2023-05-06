@@ -6,8 +6,7 @@ import com.example.mybookstore.servise.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,11 +17,6 @@ public class BookController {
     @Autowired
     public BookController(BookService bookService) {
         this.bookService = bookService;
-    }
-
-    @GetMapping("/")
-    public String getHomePage() {
-        return "home";
     }
 
     @GetMapping("/books")
@@ -39,4 +33,18 @@ public class BookController {
         model.addAttribute("selectedGenre", Genre.getDisplayNameForGenre(genre));
         return "genre";
     }
+    @PostMapping("/add-book")
+    public String addBook(Book book) {
+        bookService.saveBook(book);
+        return "redirect:/";
+    }
+
+    @GetMapping("/books/book/{id}")
+    public String getBooksByGenre(@PathVariable int id, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        return "book";
+    }
+
+
 }

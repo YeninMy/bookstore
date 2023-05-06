@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Optional;
 
+
 @Service
 public class PersonService implements UserDetailsService {
     private final PersonRepo personRepo;
@@ -26,18 +27,24 @@ public class PersonService implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Optional<Person> getPersonByEmail(final String email){
+    public Optional<Person> getPersonByEmail(final String email) {
         return personRepo.findAllByEmail(email);
     }
 
     public void savePerson(final Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
+
         person.setRoles(Collections.singleton(Role.USER));
+
         Person savedPerson = personRepo.save(person);
 
         System.out.println("Saved person: " + savedPerson); // Добавьте эту строку для логирования
     }
 
+    public void setAdminRoleToPerson(final Person person) {
+        person.setRoles(Collections.singleton(Role.ADMIN));
+        personRepo.save(person);
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

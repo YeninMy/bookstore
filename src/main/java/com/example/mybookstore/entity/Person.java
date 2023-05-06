@@ -17,15 +17,16 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-public class Person implements UserDetails {
+public class Person
+        implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @NotBlank(message = "Username can't be Null")
+    @NotBlank(message = "Username can't be empty")
     private String username;
     @Email
     private String email;
-    @Size(min = 3, max = 20, message = "Password must be between 3 and 10 characters")
+    @NotBlank(message = "Username can't be empty")
     private String password;
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Purchase> purchases;
@@ -33,9 +34,16 @@ public class Person implements UserDetails {
     @CollectionTable(name = "person_role", joinColumns = @JoinColumn(name = "person_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-    boolean active;
+
 
     public Person() {
+    }
+
+    public Person(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+
     }
 
     @Override
@@ -60,6 +68,6 @@ public class Person implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return isActive();
+        return true;
     }
 }

@@ -30,15 +30,29 @@ public class Book {
 
     private int quantity;
 
+    private String coverImage;
+
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     private List<Purchase> purchases = new ArrayList<>();
 
     public Book() {
     }
 
-    public Book(String name, Author author, Genre genre) {
+
+    public Book(String name, Author author, Genre genre, double price, int quantity) {
         this.name = name;
         this.author = author;
         this.genre = genre;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public Book(String name, Author author, Genre genre, double price, int quantity, String coverImage) {
+        this.name = name;
+        this.author = author;
+        this.genre = genre;
+        this.price = price;
+        this.quantity = quantity;
+        this.coverImage = coverImage;
     }
 }

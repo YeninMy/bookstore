@@ -14,6 +14,13 @@ body {
     margin: 0;
     padding: 0;
 }
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
 
 h1 {
     font-family: "Playfair Display", serif;
