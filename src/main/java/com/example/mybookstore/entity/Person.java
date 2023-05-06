@@ -25,8 +25,9 @@ public class Person
     @NotBlank(message = "Username can't be empty")
     private String username;
     @Email
+    @NotBlank(message = "Email can't be empty")
     private String email;
-    @NotBlank(message = "Username can't be empty")
+    @NotBlank(message = "Password can't be empty")
     private String password;
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     private List<Purchase> purchases;

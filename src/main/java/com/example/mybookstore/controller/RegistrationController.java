@@ -30,19 +30,32 @@ public class RegistrationController {
     public String AddPerson(@Valid Person person,
                             BindingResult bindingResult,
                             Model model, @RequestParam("confirm-password") String confirmPassword){
-        if (bindingResult.hasErrors()){
-            model.addAttribute("errorUsername","User name can't be empty");
-            return "registration";
+        boolean hasErrors = false;
+        if (bindingResult.getFieldError("username") != null) {
+            model.addAttribute("errorUsername", "User name can't be empty");
+            hasErrors = true;
+        }
+
+        if (bindingResult.getFieldError("email") != null) {
+            model.addAttribute("errorEmail", "Email is not valid or already exists");
+            hasErrors = true;
         }
 
         final Optional<Person> byEmail = personService.getPersonByEmail(person.getEmail());
 
-        if(byEmail.isPresent()){
-            model.addAttribute("errorEmail","Email is not valid or already exists");
-            return "registration";
+        if (byEmail.isPresent()) {
+            model.addAttribute("errorEmail", "Email is not valid or already exists");
+            hasErrors = true;
+        }
+        if (bindingResult.getFieldError("password") != null) {
+            model.addAttribute("errorPassword1", "Password can't be empty");
+            hasErrors = true;
         }
         if (!person.getPassword().equals(confirmPassword)) {
-            model.addAttribute("errorPassword", "Passwords do not match");
+            model.addAttribute("errorPassword2", "Passwords do not match");
+            hasErrors = true;
+        }
+        if (hasErrors) {
             return "registration";
         }
         personService.savePerson(person);
