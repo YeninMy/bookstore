@@ -63,16 +63,16 @@
 
     <label for="password">Password:</label>
     <input type="password" name="password" id="password"><br>
-    <#if errorPassword1??>
+    <#if errorPassword??>
         <div class="invalid-feedback" style="display: block; color: red;">
-            ${errorPassword1}
+            ${errorPassword}
         </div>
     </#if>
     <label for="confirm-password">Confirm password:</label>
     <input type="password" name="confirm-password" id="confirm-password"><br>
-    <#if errorPassword2??>
+    <#if errorPasswordConfirmation??>
         <div class="invalid-feedback" style="display: block; color: red;">
-            ${errorPassword2}
+            ${errorPasswordConfirmation}
         </div>
     </#if>
     <input type="hidden" name="_csrf" value="${_csrf.token}"/>

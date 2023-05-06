@@ -48,11 +48,11 @@ public class RegistrationController {
             hasErrors = true;
         }
         if (bindingResult.getFieldError("password") != null) {
-            model.addAttribute("errorPassword1", "Password can't be empty");
+            model.addAttribute("errorPassword", "Password can't be empty");
             hasErrors = true;
         }
         if (!person.getPassword().equals(confirmPassword)) {
-            model.addAttribute("errorPassword2", "Passwords do not match");
+            model.addAttribute("errorPasswordConfirmation", "Passwords do not match");
             hasErrors = true;
         }
         if (hasErrors) {
