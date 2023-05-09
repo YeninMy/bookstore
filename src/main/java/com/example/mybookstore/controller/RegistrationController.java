@@ -2,18 +2,25 @@ package com.example.mybookstore.controller;
 
 import com.example.mybookstore.entity.Person;
 import com.example.mybookstore.servise.PersonService;
+
 import javax.validation.Valid;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
-import java.util.Optional;
+import java.util.*;
 
 @Controller
+@SessionAttributes({"errorUsername", "errorEmail", "errorPassword", "errorPasswordConfirmation", "user"})
 public class RegistrationController {
     private final PersonService personService;
 
@@ -21,12 +28,13 @@ public class RegistrationController {
     public RegistrationController(PersonService personService) {
         this.personService = personService;
     }
+
     @GetMapping("/registration")
-    public String getAllBooks(Model model) {
+    public String getAllBooks() {
         return "registration";
     }
 
-    @PostMapping("/registration")
+        @PostMapping("/registration")
     public String AddPerson(@Valid Person person,
                             BindingResult bindingResult,
                             Model model, @RequestParam("confirm-password") String confirmPassword){
@@ -35,14 +43,11 @@ public class RegistrationController {
             model.addAttribute("errorUsername", "User name can't be empty");
             hasErrors = true;
         }
-
         if (bindingResult.getFieldError("email") != null) {
             model.addAttribute("errorEmail", "Email is not valid or already exists");
             hasErrors = true;
         }
-
         final Optional<Person> byEmail = personService.getPersonByEmail(person.getEmail());
-
         if (byEmail.isPresent()) {
             model.addAttribute("errorEmail", "Email is not valid or already exists");
             hasErrors = true;
@@ -56,6 +61,7 @@ public class RegistrationController {
             hasErrors = true;
         }
         if (hasErrors) {
+            model.addAttribute("user", person);
             return "registration";
         }
         personService.savePerson(person);
@@ -63,4 +69,12 @@ public class RegistrationController {
     }
 
 
+//    public static void addRegistrationErrorAttributesToModel(Model model) {
+//        model.addAttribute("errorUsername", model.getAttribute("errorUsername"));
+//        model.addAttribute("errorEmail", model.getAttribute("errorEmail"));
+//        model.addAttribute("errorPassword", model.getAttribute("errorPassword"));
+//        model.addAttribute("errorPasswordConfirmation", model.getAttribute("errorPasswordConfirmation"));
+//    }
+
 }
+

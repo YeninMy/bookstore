@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 
+import java.security.Principal;
+
 
 @Controller
 public class HomeController {
@@ -23,8 +25,8 @@ public class HomeController {
         this.bookService = bookService;
     }
     @GetMapping("/")
-    public String getHomePage(Model model, @AuthenticationPrincipal Person user) {
-        model.addAttribute("isAuthenticated");
+    public String getHomePage(Model model, @AuthenticationPrincipal Person person) {
+model.addAttribute("person", person);
         Book book = bookService.getRandomBook();
         model.addAttribute("book", book);
         return "home";
