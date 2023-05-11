@@ -1,24 +1,16 @@
 package com.example.mybookstore.controller;
 
-import com.example.mybookstore.entity.Book;
 import com.example.mybookstore.entity.Person;
 import com.example.mybookstore.servise.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.validation.Valid;
-import java.security.Principal;
-import java.security.Security;
-import java.util.Optional;
 
 @Controller
 public class ProfileController {
@@ -31,41 +23,16 @@ public class ProfileController {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     @GetMapping("/profile")
-    public String getProfilePage(Model model, @AuthenticationPrincipal Person user) {
-        if (user != null) {
+    public String getProfilePage(Model model, @AuthenticationPrincipal Person person) {
+        if (person != null) {
 //            model.addAttribute("username", user.getUsername());
-            model.addAttribute("user", user);
+            model.addAttribute("user", person);
         }
         return "profile";
     }
 
-//    @PostMapping("/profile")
-//    public String AddPerson(Model model, @RequestParam("old-password") String oldPassword,
-//                            @RequestParam("new-password") String newPassword,
-//                            @RequestParam("confirm-password") String confirmPassword,
-//                            @AuthenticationPrincipal Person user) {
-//        boolean hasErrors = false;
-//        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-//            model.addAttribute("errorOldPassword", "Wrong password");
-//            hasErrors = true;
-//        }
-////        if (bindingResult.getFieldError("password") != null) {
-////            model.addAttribute("errorPassword", "Password can't be empty");
-////            hasErrors = true;
-////        }
-//        if (!newPassword.equals(confirmPassword)) {
-//            model.addAttribute("errorPasswordConfirmation", "Passwords do not match");
-//            hasErrors = true;
-//        }
-//        if (hasErrors) {
-//            return "profile";
-//        }
-//        user.setPassword(newPassword);
-//        personService.savePerson(user);
-//        return "redirect:/";
-//    }
+
 
     @PostMapping("/profile")
     public String AddPerson(Model model,
@@ -73,7 +40,7 @@ public class ProfileController {
                             @RequestParam("new-password") String newPassword,
                             @RequestParam("confirm-password") String confirmPassword,
                             @AuthenticationPrincipal Person user) {
-                boolean hasErrors = false;
+        boolean hasErrors = false;
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             model.addAttribute("errorOldPassword", "Wrong password");
             hasErrors = true;

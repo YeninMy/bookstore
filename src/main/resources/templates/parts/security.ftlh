@@ -2,12 +2,14 @@
 
 <#if known>
     <#assign
-    user = Session.SPRING_SECURITY_CONTEXT.authentication.principal
-    name = user.getUsername()
+    person = Session.SPRING_SECURITY_CONTEXT.authentication.principal
+    name = person.getUsername()
+    openPurchase = person.chosenBooks()
     >
     <#else>
         <#assign
 
         name = "Guest"
+        openPurchase = ""
         >
 </#if>

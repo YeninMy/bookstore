@@ -5,17 +5,11 @@ import com.example.mybookstore.servise.PersonService;
 
 import javax.validation.Valid;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.*;
 
@@ -34,10 +28,10 @@ public class RegistrationController {
         return "registration";
     }
 
-        @PostMapping("/registration")
+    @PostMapping("/registration")
     public String AddPerson(@Valid Person person,
                             BindingResult bindingResult,
-                            Model model, @RequestParam("confirm-password") String confirmPassword){
+                            Model model, @RequestParam("confirm-password") String confirmPassword) {
         boolean hasErrors = false;
         if (bindingResult.getFieldError("username") != null) {
             model.addAttribute("errorUsername", "User name can't be empty");
@@ -67,14 +61,6 @@ public class RegistrationController {
         personService.savePerson(person);
         return "redirect:/login";
     }
-
-
-//    public static void addRegistrationErrorAttributesToModel(Model model) {
-//        model.addAttribute("errorUsername", model.getAttribute("errorUsername"));
-//        model.addAttribute("errorEmail", model.getAttribute("errorEmail"));
-//        model.addAttribute("errorPassword", model.getAttribute("errorPassword"));
-//        model.addAttribute("errorPasswordConfirmation", model.getAttribute("errorPasswordConfirmation"));
-//    }
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.mybookstore.servise;
 
+import com.example.mybookstore.entity.Author;
 import com.example.mybookstore.repository.AuthorRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,5 +12,9 @@ public class AuthorService {
     @Autowired
     public AuthorService(AuthorRepo authorRepo) {
         this.authorRepo = authorRepo;
+    }
+
+    public void saveAuthor(Author author){
+        authorRepo.save(author);
     }
 }

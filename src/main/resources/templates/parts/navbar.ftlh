@@ -1,4 +1,4 @@
-<#--<#assign user = Session.SPRING_SECURITY_CONTEXT??>-->
+<#--<#assign person = Session.SPRING_SECURITY_CONTEXT??>-->
 <#include "security.ftlh">
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
@@ -13,7 +13,7 @@
                     <a class="nav-link active" aria-current="page" href="/books">Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/basket">Basket</a>
+                    <a class="nav-link" aria-current="page" href="/cart">Cart ${openPurchase}</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/profile" role="button" data-bs-toggle="dropdown"
