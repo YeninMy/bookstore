@@ -3,8 +3,10 @@ package com.example.mybookstore.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
+import com.example.mybookstore.repository.PurchaseRepo;
+import com.example.mybookstore.servise.PersonService;
+import com.example.mybookstore.servise.PurchaseService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -36,7 +40,7 @@ public class Person
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-
+    int booksChosen;
     public Person() {
     }
 
@@ -46,6 +50,13 @@ public class Person
         this.password = password;
 
     }
+
+public String chosenBooks(){
+        if (booksChosen <= 0){
+            return "";
+        }
+        return String.valueOf(booksChosen);
+}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

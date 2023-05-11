@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class BookController {
@@ -31,7 +32,7 @@ public class BookController {
     }
 
     @GetMapping("/books/genre/{genre}")
-    public String getBooksByGenre(@PathVariable String genre, Model model,Principal principal) {
+    public String getBooksByGenre(@PathVariable String genre, Model model, Principal principal) {
         if (principal != null) {
             model.addAttribute("username", principal.getName());
         }
@@ -40,6 +41,7 @@ public class BookController {
         model.addAttribute("selectedGenre", Genre.getDisplayNameForGenre(genre));
         return "genre";
     }
+
     @PostMapping("/add-book")
     public String addBook(Book book) {
         bookService.saveBook(book);
@@ -47,12 +49,16 @@ public class BookController {
     }
 
     @GetMapping("/books/book/{id}")
-    public String getBooksByGenre(@PathVariable int id, Model model,Principal principal) {
+    public String getBooksByGenre(@PathVariable int id, Model model, Principal principal) {
         if (principal != null) {
             model.addAttribute("username", principal.getName());
         }
         Book book = bookService.getBookById(id);
+        List<Book> booksList = bookService.getBooksByGenre(book.getGenre());
+        booksList.remove(book);
+        List<Book> books = booksList.stream().limit(3).collect(Collectors.toList());
         model.addAttribute("book", book);
+        model.addAttribute("books", books);
         return "book";
     }
 

@@ -21,7 +21,6 @@ public class PersonService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-
     public PersonService(PersonRepo personRepo, PasswordEncoder passwordEncoder) {
         this.personRepo = personRepo;
         this.passwordEncoder = passwordEncoder;
@@ -36,9 +35,14 @@ public class PersonService implements UserDetailsService {
 
         person.setRoles(Collections.singleton(Role.USER));
 
-        Person savedPerson = personRepo.save(person);
+       personRepo.save(person);
 
-        System.out.println("Saved person: " + savedPerson); // Добавьте эту строку для логирования
+
+    }
+    public void updatePerson(final Person person) {
+        personRepo.save(person);
+
+
     }
 
     public void setAdminRoleToPerson(final Person person) {
@@ -48,11 +52,11 @@ public class PersonService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person user = personRepo.findByUsername(username);
+        Person person = personRepo.findByUsername(username);
         System.out.println("Loading user by username: " + username); // Добавьте эту строку для логирования
-        if (user == null) {
+        if (person == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return user;
+        return person;
     }
 }

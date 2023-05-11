@@ -1,10 +1,10 @@
 package com.example.mybookstore.entity;
 
 import javax.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 
 import java.util.ArrayList;
@@ -19,10 +19,8 @@ public class Book {
     private int id;
 
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
-    @JoinColumn(name = "author_id")
-    private Author author;
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    private List<Author> authors;
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
@@ -39,20 +37,23 @@ public class Book {
     }
 
 
-    public Book(String name, Author author, Genre genre, double price, int quantity) {
+    public Book(String name, List<Author> authors, Genre genre, double price, int quantity) {
         this.name = name;
-        this.author = author;
+        this.authors = authors;
         this.genre = genre;
         this.price = price;
         this.quantity = quantity;
+
     }
 
-    public Book(String name, Author author, Genre genre, double price, int quantity, String coverImage) {
+    public Book(String name, List<Author> authors, Genre genre, double price, int quantity, String coverImage) {
         this.name = name;
-        this.author = author;
+        this.authors = authors;
         this.genre = genre;
         this.price = price;
         this.quantity = quantity;
         this.coverImage = coverImage;
     }
+
+
 }
