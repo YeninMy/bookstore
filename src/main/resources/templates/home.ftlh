@@ -3,39 +3,39 @@
     <h1>MY</h1>
     <h2>bookstore</h2>
 
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <form class="d-flex" role="search" action="/books" method="get">
+        <input class="form-control me-2"  type="search" placeholder="Search" name="search" aria-label="Search">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
+    <section class="user-info">
+        <#if user??>
+            <h2>Welcome, ${user.username}, Book for you!!!</h2>
 
-    <#if user??>
-        <h1>Welcome, ${user.username}, Book for you!!!</h1>
-
-    <#else>
-        <h1>Welcome, guest!</h1>
-    </#if>
-<#--<h2>Add a new book</h2>-->
-<#--<form action="/add-book" method="post">-->
-<#--    <label for="name">Name:</label>-->
-<#--    <input type="text" name="name" id="name" required><br>-->
-
-<#--    <button type="submit">Add book</button>-->
-<#--</form>-->
+        <#else>
+            <h2>Welcome, guest!</h2>
+            <p>We sure you will like this book:</p>
+        </#if>
+    </section>
+    <section class="random-book">
     <div id="random-book">
-        <h2><a href="/books/book/${book.id}">${book.name}</a></h2>
         <div class="image-container">
-            <#if book.coverImage?has_content>
-                <img src="/images/${book.getCoverImage()}" alt="book cover image" style="height: 300px">
+            <#if book.getDirectLinkToImage()??>
+                <img src="${book.getDirectLinkToImage()}" alt="book cover image" style="height: 250px">
             <#else>
-                <img src="/images/placeholder-image.jpg" alt="Заглушка обложки книги" style="height: 300px">
+                <img src="${book.getPlaceHolder()}" alt="book cover placeholder" style="height: 250px">
             </#if>
         </div>
-<#--        <p>${book.author}</p>-->
+        <h3><a href="/books/book/${book.id}">${book.name}</a></h3>
         <#list book.authors as author>
-                <p>${author.name()}</p>
+            <p>${author.name()}</p>
         </#list>
         <p><a href="/books/genre/${book.genre}">${book.genre.getDisplayName()}</a></p>
 
-        <button onclick="location.reload()" id="update-book">Update book</button>
+        <div class="button-container">
+            <button onclick="location.reload()" id="update-book" class="btn btn-outline-success" type="submit">Try another</button>
+        </div>
+
     </div>
+    </section>
 </@common.page>

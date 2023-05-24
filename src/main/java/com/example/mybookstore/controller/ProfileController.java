@@ -26,7 +26,6 @@ public class ProfileController {
     @GetMapping("/profile")
     public String getProfilePage(Model model, @AuthenticationPrincipal Person person) {
         if (person != null) {
-//            model.addAttribute("username", user.getUsername());
             model.addAttribute("user", person);
         }
         return "profile";

@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 
 import java.util.ArrayList;
@@ -23,6 +22,8 @@ public class Book {
     private List<Author> authors;
     @Enumerated(EnumType.STRING)
     private Genre genre;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     private double price;
 
@@ -32,6 +33,10 @@ public class Book {
 
     @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
     private List<Purchase> purchases = new ArrayList<>();
+    @ManyToMany(mappedBy = "books", fetch = FetchType.LAZY)
+    private List<Wishlist> wishlists = new ArrayList<>();
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<Rating> ratings = new ArrayList<>();
 
     public Book() {
     }
@@ -53,6 +58,35 @@ public class Book {
         this.price = price;
         this.quantity = quantity;
         this.coverImage = coverImage;
+    }
+
+    public String getPlaceHolder() {
+        String placeHolder = "https://drive.google.com/uc?export=view&id=1f39LJaI3PKC5uMorR3XcsW-oVtbEDeQA";
+        return placeHolder;
+    }
+
+    public String getDirectLinkToImage() {
+        if (coverImage != null) {
+            String fileId = null;
+
+            if (coverImage.contains("/d/")) {
+                fileId = coverImage.split("/d/")[1].split("/")[0];
+            } else if (coverImage.contains("id=")) {
+                fileId = coverImage.split("id=")[1];
+            }
+
+            if (fileId != null) {
+                return "https://drive.google.com/uc?export=view&id=" + fileId;
+            }
+        }
+        return null;
+    }
+
+    public double averageRating() {
+        return ratings.stream()
+                .mapToDouble(Rating::getMark)
+                .average()
+                .orElse(0.0);
     }
 
 

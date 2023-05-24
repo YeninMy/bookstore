@@ -15,22 +15,29 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="/cart">Cart ${openPurchase}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/wishlist">Wishlist ${wishes}</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="/profile" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">Profile</a>
                     <ul class="dropdown-menu">
                         <#if known>
-                            <li><a class="dropdown-item" href="/profile">${name}</a></li>
-                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            <li><a class="dropdown-item" href="/profile" id="profileLink">${name}</a></li>
+                            <li><a class="dropdown-item" href="/logout" id="logoutLink">Logout</a></li>
                         <#else>
-                            <li><a class="dropdown-item" href="/login">Login</a></li>
-<#--                            <li><a class="dropdown-item" href="/registration">Registration</a></li>-->
-                        <li> <button id="openModalButton" class="dropdown-item" >Registration</button></li>
-
+                            <li><a class="dropdown-item" href="/login" id="loginLink">Login</a></li>
+                            <li><button id="openModalButton" class="dropdown-item" >Registration</button></li>
                         </#if>
+
                         <#--                        <li><hr class="dropdown-divider"></li>-->
                     </ul>
                 </li>
+                <#if isAdmin>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/admin-panel">Admin Panel</a>
+                </li>
+                </#if>
             </ul>
         </div>
     </div>
