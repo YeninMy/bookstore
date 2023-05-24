@@ -100,7 +100,14 @@ a {
 a:hover {
     color: #c895d7;
 }
-
+.pagination {
+    --bs-pagination-border-color: var(--tiffany-color);
+    --bs-pagination-color: var(--tiffany-color);
+    --bs-pagination-hover-color: #c895d7;
+    --bs-pagination-hover-border-color: #c895d7;
+    --bs-pagination-active-bg: var(--tiffany-color);
+    --bs-pagination-active-border-color: var(--tiffany-color);
+}
 
 
 

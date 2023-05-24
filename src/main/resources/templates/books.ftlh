@@ -140,23 +140,45 @@
     </div>
 
     <!-- Navigation Links -->
-    <#if currentPage?number gt 0>
-        <form action="/books" method="get" class="d-inline">
-            <input type="hidden" name="page" value="${currentPage - 1}">
-            <input type="hidden" name="sortOption" value="${sortOption!}">
-            <button type="submit" class="btn btn-primary">Previous</button>
-        </form>
-    </#if>
+<#--    <#if currentPage?number gt 0>-->
+<#--        <form action="/books" method="get" class="d-inline">-->
+<#--            <input type="hidden" name="page" value="${currentPage - 1}">-->
+<#--            <input type="hidden" name="sortOption" value="${sortOption!}">-->
+<#--            <button type="submit" class="btn btn-primary">Previous</button>-->
+<#--        </form>-->
+<#--    </#if>-->
 
-    Page ${currentPage + 1} of ${totalPages}
+<#--    Page ${currentPage + 1} of ${totalPages}-->
 
-    <#if currentPage < totalPages - 1>
-        <form action="/books" method="get" class="d-inline">
-            <input type="hidden" name="page" value="${currentPage + 1}">
-            <input type="hidden" name="sortOption" value="${sortOption!}">
-            <button type="submit" class="btn btn-primary">Next</button>
-        </form>
-    </#if>
+<#--    <#if currentPage < totalPages - 1>-->
+<#--        <form action="/books" method="get" class="d-inline">-->
+<#--            <input type="hidden" name="page" value="${currentPage + 1}">-->
+<#--            <input type="hidden" name="sortOption" value="${sortOption!}">-->
+<#--            <button type="submit" class="btn btn-primary">Next</button>-->
+<#--        </form>-->
+<#--    </#if>-->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <#if currentPage?number gt 0>
+                <li class="page-item">
+                    <a class="page-link" href="?page=${currentPage - 1}&sortOption=${sortOption!}">Previous</a>
+                </li>
+            </#if>
+
+            <#list 1..totalPages as i>
+                <li class="page-item<#if i == currentPage + 1> active</#if>">
+                    <a class="page-link" href="?page=${i-1}&sortOption=${sortOption!}">${i}</a>
+                </li>
+            </#list>
+
+            <#if currentPage < totalPages - 1>
+                <li class="page-item">
+                    <a class="page-link" href="?page=${currentPage + 1}&sortOption=${sortOption!}">Next</a>
+                </li>
+            </#if>
+        </ul>
+    </nav>
+
 
     <script>
         document.querySelectorAll('#sort-name, #sort-priceAsk, #sort-priceDesk').forEach(item => {
