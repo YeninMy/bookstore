@@ -13,11 +13,13 @@ import java.util.List;
 public class PurchaseService {
     private final PurchaseRepo purchaseRepo;
     private final PersonService personService;
+    private final BookService bookService;
 
     @Autowired
-    public PurchaseService(PurchaseRepo purchaseRepo, PersonService personService) {
+    public PurchaseService(PurchaseRepo purchaseRepo, PersonService personService, BookService bookService) {
         this.purchaseRepo = purchaseRepo;
         this.personService = personService;
+        this.bookService = bookService;
     }
 
     public void savePurchase(Purchase purchase) {
@@ -43,19 +45,25 @@ public class PurchaseService {
 
         openPurchase.getBooks().remove(book);
         person.setBooksChosen(person.getBooksChosen()-1);
+        bookService.saveBook(book);
         personService.updatePerson(person);
         purchaseRepo.save(openPurchase);
     }
-    public Purchase checkout(Person person) {
+    public void checkout(Person person) {
         Purchase openPurchase = purchaseRepo.findByPersonAndClosed(person, false);
         if (openPurchase != null) {
             openPurchase.setClosed(true);
+            List<Book> boughtBooks = openPurchase.getBooks();
+            for (Book book : boughtBooks) {
+                book.setQuantity(book.getQuantity()-1);
+                bookService.saveBook(book);
+
+            }
             person.setBooksChosen(0);
             personService.updatePerson(person);
-            return purchaseRepo.save(openPurchase);
-        }
+            purchaseRepo.save(openPurchase);
 
-        return null;
+        }
     }
 
     public Purchase getOpenPurchaseByPerson(Person person) {

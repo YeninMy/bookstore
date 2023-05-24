@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Optional;
 
 
@@ -30,23 +31,21 @@ public class PersonService implements UserDetailsService {
         return personRepo.findAllByEmail(email);
     }
 
+    public Person getPersonById(int id){
+        return personRepo.getById(id);
+    }
     public void savePerson(final Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
-
         person.setRoles(Collections.singleton(Role.USER));
-
-       personRepo.save(person);
-
-
+        personRepo.save(person);
     }
+
     public void updatePerson(final Person person) {
         personRepo.save(person);
-
-
     }
 
     public void setAdminRoleToPerson(final Person person) {
-        person.setRoles(Collections.singleton(Role.ADMIN));
+        person.setRoles(EnumSet.of(Role.ADMIN, Role.USER));
         personRepo.save(person);
     }
 

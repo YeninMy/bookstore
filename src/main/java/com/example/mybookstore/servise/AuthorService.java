@@ -17,4 +17,8 @@ public class AuthorService {
     public void saveAuthor(Author author){
         authorRepo.save(author);
     }
+
+    public Author findByName(String firstName, String lastName) {
+        return authorRepo.findByFirstNameAndLastName(firstName, lastName);
+    }
 }

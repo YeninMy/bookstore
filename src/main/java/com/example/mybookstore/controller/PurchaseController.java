@@ -46,7 +46,13 @@ public class PurchaseController {
     public String addToPurchases(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
         purchaseService.addBookToPurchases(person,book);
-        return "redirect:/cart";
+        return "redirect:/books/book/" + bookId;
+    }
+    @PostMapping ("/cart/add-book/{bookId}")
+    public String addBookToPurchases(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
+        Book book = bookService.getBookById(bookId);
+        purchaseService.addBookToPurchases(person,book);
+        return "redirect:/books";
     }
     @PostMapping ("/cart/remove/{bookId}")
     public String removeFromPurchases(@AuthenticationPrincipal Person person, @PathVariable int bookId) {

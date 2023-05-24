@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.EnumSet;
 
 @Service
 public class DataLoader {
@@ -65,30 +66,52 @@ public class DataLoader {
         Author harperLee = new Author("Harper", "Lee");
 //        authorService.saveAuthor(harperLee);
 
-        bookService.saveBook(new Book("Dune", Collections.singletonList(frankHerbert), Genre.SCIENCE_FICTION, 35.0, 50, "dune-cover.jpg"));
-        bookService.saveBook(new Book("1984", Collections.singletonList(georgeOrwell), Genre.SCIENCE_FICTION, 45.0, 80));
-        bookService.saveBook(new Book("Brave New World", Collections.singletonList(aldousHuxley), Genre.SCIENCE_FICTION, 40.0, 70));
-        bookService.saveBook(new Book("The Lord of the Rings", Collections.singletonList(jrrTolkien), Genre.FANTASY, 50.0, 90));
-        bookService.saveBook(new Book("Harry Potter and the Philosopher's Stone", Collections.singletonList(jkRowling), Genre.FANTASY, 30.0, 60));
-        bookService.saveBook(new Book("The Hobbit", Collections.singletonList(jrrTolkien), Genre.FANTASY, 45.0, 80));
-        bookService.saveBook(new Book("The Da Vinci Code", Collections.singletonList(danBrown), Genre.MYSTERY, 35.0, 50));
-        bookService.saveBook(new Book("The Girl with the Dragon Tattoo", Collections.singletonList(stiegLarsson), Genre.MYSTERY, 40.0, 70));
-        bookService.saveBook(new Book("Gone Girl", Collections.singletonList(gillianFlynn), Genre.MYSTERY, 50.0, 90));
-        bookService.saveBook(new Book("The Silence of the Lambs", Collections.singletonList(thomasHarris), Genre.THRILLER, 30.0, 60));
-        bookService.saveBook(new Book("Jurassic Park", Collections.singletonList(michaelCrichton), Genre.THRILLER, 45.0, 80));
-        bookService.saveBook(new Book("The Shining", Collections.singletonList(stephenKing), Genre.THRILLER, 35.0, 50));
-        bookService.saveBook(new Book("Pride and Prejudice", Collections.singletonList(janeAusten), Genre.ROMANCE, 40.0, 70));
-        bookService.saveBook(new Book("Jane Eyre", Collections.singletonList(charlotteBronte), Genre.ROMANCE, 50.0, 90));
-        bookService.saveBook(new Book("Wuthering Heights", Collections.singletonList(emilyBronte), Genre.ROMANCE, 35.0, 50));
-        bookService.saveBook(new Book("Dracula", Collections.singletonList(bramStoker), Genre.HORROR, 45.0, 80));
-        bookService.saveBook(new Book("Frankenstein", Collections.singletonList(maryShelley), Genre.HORROR, 30.0, 60));
-        bookService.saveBook(new Book("It", Collections.singletonList(stephenKing), Genre.HORROR, 40.0, 70));
-        bookService.saveBook(new Book("The Great Gatsby", Collections.singletonList(fScottFitzgerald), Genre.HISTORICAL_FICTION, 50.0, 90));
-        bookService.saveBook(new Book("To Kill a Mockingbird", Collections.singletonList(harperLee), Genre.HISTORICAL_FICTION, 35.0, 50));
+        bookService.saveBook(new Book("Dune", Collections.singletonList(frankHerbert),
+                Genre.SCIENCE_FICTION, 35.0, 50, "https://drive.google.com/file/d/10Js8xNSBc_qaoVQzAd19akE3npBeqc6I/view?usp=share_link"));
 
-//        bookService.updateBookPrice(1,12.35);
-        Person admin = new Person("Misha", "vbif555666@gmail.com", "stale555666");
+        bookService.saveBook(new Book("1984", Collections.singletonList(georgeOrwell),
+                Genre.SCIENCE_FICTION, 45.0, 80));
+        bookService.saveBook(new Book("Brave New World", Collections.singletonList(aldousHuxley),
+                Genre.SCIENCE_FICTION, 40.0, 70));
+        bookService.saveBook(new Book("The Lord of the Rings", Collections.singletonList(jrrTolkien),
+                Genre.FANTASY, 50.0, 90));
+        bookService.saveBook(new Book("Harry Potter and the Philosopher's Stone", Collections.singletonList(jkRowling),
+                Genre.FANTASY, 30.0, 60));
+        bookService.saveBook(new Book("The Hobbit", Collections.singletonList(jrrTolkien),
+                Genre.FANTASY, 45.0, 80));
+        bookService.saveBook(new Book("The Da Vinci Code", Collections.singletonList(danBrown),
+                Genre.MYSTERY, 35.0, 50));
+        bookService.saveBook(new Book("The Girl with the Dragon Tattoo", Collections.singletonList(stiegLarsson), Genre.MYSTERY, 40.0, 70));
+        bookService.saveBook(new Book("Gone Girl", Collections.singletonList(gillianFlynn),
+                Genre.MYSTERY, 50.0, 90));
+        bookService.saveBook(new Book("The Silence of the Lambs", Collections.singletonList(thomasHarris), Genre.THRILLER, 30.0, 60));
+        bookService.saveBook(new Book("Jurassic Park", Collections.singletonList(michaelCrichton),
+                Genre.THRILLER, 45.0, 80));
+        bookService.saveBook(new Book("The Shining", Collections.singletonList(stephenKing),
+                Genre.THRILLER, 35.0, 50));
+        bookService.saveBook(new Book("Pride and Prejudice", Collections.singletonList(janeAusten),
+                Genre.ROMANCE, 40.0, 70));
+        bookService.saveBook(new Book("Jane Eyre", Collections.singletonList(charlotteBronte),
+                Genre.ROMANCE, 50.0, 90));
+        bookService.saveBook(new Book("Wuthering Heights", Collections.singletonList(emilyBronte),
+                Genre.ROMANCE, 35.0, 50));
+        bookService.saveBook(new Book("Dracula", Collections.singletonList(bramStoker),
+                Genre.HORROR, 45.0, 80));
+        bookService.saveBook(new Book("Frankenstein", Collections.singletonList(maryShelley),
+                Genre.HORROR, 30.0, 60));
+        bookService.saveBook(new Book("It", Collections.singletonList(stephenKing),
+                Genre.HORROR, 40.0, 70));
+        bookService.saveBook(new Book("The Great Gatsby", Collections.singletonList(fScottFitzgerald),
+                Genre.HISTORICAL_FICTION, 50.0, 90));
+        bookService.saveBook(new Book("To Kill a Mockingbird", Collections.singletonList(harperLee),
+                Genre.HISTORICAL_FICTION, 35.0, 50));
+
+        Person admin = new Person("Misha", "vbif555666@gmail.com", "stale555666",
+                EnumSet.of(Role.USER));
         personService.savePerson(admin);
         personService.setAdminRoleToPerson(admin);
+        Person user = new Person("Sveta", "stale@meta.ua", "stale555666",
+                EnumSet.of(Role.USER));
+        personService.savePerson(user);
     }
 }
