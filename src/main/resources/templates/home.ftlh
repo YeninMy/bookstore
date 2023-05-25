@@ -35,7 +35,24 @@
         <div class="button-container">
             <button onclick="location.reload()" id="update-book" class="btn btn-outline-success" type="submit">Try another</button>
         </div>
-
     </div>
     </section>
+
+
+<#--    <div style="margin-top: 25px;">-->
+<#--    <footer class="footer py-3 bg-light">-->
+<#--        <div class="container">-->
+<#--            <p id="about-creator" class="text-muted"></p>-->
+<#--            <p id="about-description" class="text-muted"></p>-->
+<#--        </div>-->
+<#--    </footer>-->
+<#--    </div>-->
+<#--    <script>-->
+<#--        fetch('http://localhost:8080/api/about') // обновленный URL-->
+<#--            .then(response => response.json())-->
+<#--            .then(data => {-->
+<#--                document.getElementById('about-creator').textContent = "Автор: " + data.creator;-->
+<#--                document.getElementById('about-description').textContent = "О проекте: " + data.description;-->
+<#--            });-->
+<#--    </script>-->
 </@common.page>

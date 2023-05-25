@@ -1,4 +1,4 @@
-<div id="passwordModal" class="modal">
+<div id="registrationModal" class="modal">
     <div class="modal-content">
         <h2>Registration form</h2>
         <form class="rf" method="post" action="/registration">
@@ -38,7 +38,7 @@
     </div>
 </div>
 <script>
-    var modal = document.getElementById("passwordModal");
+    var modal = document.getElementById("registrationModal");
     var btn = document.getElementById("openModalButton");
 
     btn.onclick = function() {
