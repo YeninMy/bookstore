@@ -7,7 +7,7 @@
 
 
 
-    <button id="openModalButton">Change Password</button>
+    <button id="openModalButton2">Change Password</button>
     <#if errorOldPassword?? || errorNewPassword?? || errorPasswordConfirmation?? >
         <div class="invalid-feedback" style="display: block; color: red;">
             Errors, in form try again.
@@ -47,7 +47,7 @@
     </div>
     <script>
         var modal = document.getElementById("passwordModal");
-        var btn = document.getElementById("openModalButton");
+        var btn = document.getElementById("openModalButton2");
 
         btn.onclick = function () {
             modal.style.display = "block";

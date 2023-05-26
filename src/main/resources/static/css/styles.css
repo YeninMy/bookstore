@@ -5,13 +5,31 @@
     --tiffany-color: #3dc2b5;
     --text-color: #78c7c0;
 }
-
+* {
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+    height: 90%;
+}
 body {
     font-family: "Roboto", Arial, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     margin: 0;
     padding: 0;
+    height: 100%;
+}
+
+
+.content {
+    flex: 1 0 auto;
+}
+
+main {
+    padding-bottom: 100px;
+    min-height: 100%;
 }
 .image-container {
     display: flex;
@@ -24,14 +42,11 @@ body {
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-
 }
-
 .user-info {
     text-align: center;
     margin: 20px 0;
 }
-
 .random-book {
     margin: auto;
     display: flex;
@@ -51,7 +66,7 @@ h1 {
 }
 b1 {
     font-family: "Playfair Display", serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: var(--tiffany-color);
     text-align: left;
     margin-left: 55px;
@@ -66,7 +81,8 @@ p {
     color: var(--text-color);
 }
 .books-p{
-    font-size: 1.2rem;
+
+    font-size: 1rem;
     text-align: left;
     margin-top: 0px;
     margin-left: 15px;
@@ -91,16 +107,32 @@ h3 {
     margin-top: 5px;
     margin-bottom: 7px;
 }
+
 a {
     text-decoration: none;
     color: var(--tiffany-color);
     transition: color 0.3s;
 }
-
+.footer {
+    padding-top: 40px;
+    border-top: 1px solid #ddd; /* Верхний бордюр */
+    margin-top: -80px;
+    flex: 0 0 auto;
+}
 a:hover {
     color: #c895d7;
 }
-
+.pagination {
+    --bs-pagination-border-color: var(--tiffany-color);
+    --bs-pagination-color: var(--tiffany-color);
+    --bs-pagination-hover-color: #c895d7;
+    --bs-pagination-hover-border-color: #c895d7;
+    --bs-pagination-active-bg: var(--tiffany-color);
+    --bs-pagination-active-border-color: var(--tiffany-color);
+}
+.custom-btn-width {
+    width: 150px; /* Задайте желаемую ширину для кнопок */
+}
 
 
 

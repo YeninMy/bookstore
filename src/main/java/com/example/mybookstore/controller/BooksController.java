@@ -24,7 +24,7 @@ public class BooksController {
         this.bookService = bookService;
     }
 
-    private static final int pageSize = 5;
+    private static final int pageSize = 3;
 
     @GetMapping("/books")
     public String getAllBooks(Model model,
