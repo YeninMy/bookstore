@@ -31,19 +31,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "static/**", "/css/**", "/images/**","/books/**","/api/**").permitAll()
+                .antMatchers("/", "static/**", "/css/**","/books/**","/api/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/registration").permitAll()
                 .antMatchers(HttpMethod.POST, "/registration").permitAll()
                 .antMatchers(HttpMethod.POST, "/add-book").permitAll()
                 .antMatchers("/", "/random-book").permitAll()
+                .antMatchers("static/images/dune-cover.jpg").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
-//                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()
-//                .rememberMe()
-//                .and()
+                .rememberMe()
+                .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/")
@@ -54,7 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().cors();
-//        http.csrf().disable();
     }
 
     @Override

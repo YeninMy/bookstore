@@ -1,41 +1,39 @@
 <#import "parts/common.ftlh" as common>
 <@common.page>
-
     <h2>Registration form</h2>
+    <br>
     <form class="rf" method="post" action="/registration">
-        <label for="username">Username:</label>
-        <input type="text" name="username" id="username"><br>
+        <input class="form-control me-2 flex-grow-1" type="text" name="username" id="username" placeholder="Username">
         <#if errorUsername??>
-            <div class="invalid-feedback" style="display: block; color: red;">
+            <div class="alert alert-danger" role="alert">
                 ${errorUsername}
             </div>
         </#if>
-        <label for="email">Email:</label>
-        <input type="text" name="email" id="email"><br>
+        <input class="form-control me-2 flex-grow-1" type="text" name="email" id="email" placeholder="E-mail">
         <#if errorEmail??>
-            <div class="invalid-feedback" style="display: block; color: red;">
+            <div class="alert alert-danger" role="alert">
                 ${errorEmail}
             </div>
         </#if>
-
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password"><br>
+        <input class="form-control me-2 flex-grow-1" type="password" name="password" id="password"
+               placeholder="Password">
         <#if errorPassword??>
-            <div class="invalid-feedback" style="display: block; color: red;">
+            <div class="alert alert-danger" role="alert">
                 ${errorPassword}
             </div>
         </#if>
-        <label for="confirm-password">Confirm password:</label>
-        <input type="password" name="confirm-password" id="confirm-password"><br>
+        <input class="form-control me-2 flex-grow-1" type="password" name="confirm-password" id="confirm-password"
+               placeholder="Confirm password">
         <#if errorPasswordConfirmation??>
-            <div class="invalid-feedback" style="display: block; color: red;">
+            <div class="alert alert-danger" role="alert">
                 ${errorPasswordConfirmation}
             </div>
         </#if>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <input type="submit" value="Add">
+        <button class="btn btn-success custom-btn-width-2" type="submit">Submit</button>
     </form>
-    <br>
     <p>Already have an account?</p>
-    <button onclick="location.href='/login'" id="registration-button">login</button>
+    <button class="btn btn-outline-success custom-btn-width-2" onclick="location.href='/login'" id="registration-button"
+            style="display: block; margin: auto;">login
+    </button>
 </@common.page>

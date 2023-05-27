@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -82,12 +83,12 @@ public class Book {
         return null;
     }
 
-    public double averageRating() {
-        return ratings.stream()
+    public int averageRating() {
+        double avgRating = ratings.stream()
                 .mapToDouble(Rating::getMark)
                 .average()
                 .orElse(0.0);
+        return (int) Math.round(avgRating);
     }
-
 
 }

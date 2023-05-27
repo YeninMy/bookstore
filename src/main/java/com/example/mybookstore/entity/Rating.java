@@ -18,5 +18,5 @@ public class Rating {
     @ManyToOne
     private Book book;
 
-    private double mark;
+    private int mark;
 }

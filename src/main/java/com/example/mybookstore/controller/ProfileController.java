@@ -32,7 +32,6 @@ public class ProfileController {
     }
 
 
-
     @PostMapping("/profile")
     public String AddPerson(Model model,
                             @RequestParam("old-password") String oldPassword,

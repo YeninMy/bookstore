@@ -12,7 +12,7 @@ public class AboutController {
     public About getAbout() {
         About about = new About();
         about.setCreator("Mykhailo Yenin");
-        about.setDescription("About my project");
+        about.setDescription("This project was created as a thesis for the completion of the java-developer course for the Study Space school and serves as a demonstration of the experience I have gained.");
         return about;
     }
 }

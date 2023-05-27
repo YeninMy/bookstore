@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class WishlistController {
     private final WishlistService wishlistService;
     private final BookService bookService;
     private final PurchaseService purchaseService;
+
     @Autowired
     public WishlistController(WishlistService wishlistService, BookService bookService, PurchaseService purchaseService) {
         this.wishlistService = wishlistService;
@@ -33,7 +36,7 @@ public class WishlistController {
     @GetMapping("/wishlist")
     public String wishlist(Model model, @AuthenticationPrincipal Person person) {
         Wishlist wishlist = wishlistService.getWishlistByPerson(person);
-        if(wishlist == null){
+        if (wishlist == null) {
             wishlist = new Wishlist();
             wishlist.setPerson(person);
             wishlistService.saveWishlist(wishlist);
@@ -46,29 +49,38 @@ public class WishlistController {
     @PostMapping("/wishlist/add/{bookId}")
     public String addToWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
-        wishlistService.addBookToWishlist(person,book);
+        wishlistService.addBookToWishlist(person, book);
         return "redirect:/books/book/" + bookId;
     }
-    @PostMapping ("/wishlist/add-book/{bookId}")
+
+    @PostMapping("/wishlist/add-book/{bookId}")
     public String addBookToWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
-        wishlistService.addBookToWishlist(person,book);
+        wishlistService.addBookToWishlist(person, book);
         return "redirect:/books";
     }
-    @PostMapping ("/wishlist/remove/{bookId}")
+
+    @PostMapping("/wishlist/add-book-genre/{bookId}")
+    public String addBookByGenreToWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId,
+                                           @RequestParam String selectedGenre, RedirectAttributes redirectAttributes) {
+        Book book = bookService.getBookById(bookId);
+        wishlistService.addBookToWishlist(person, book);
+        redirectAttributes.addAttribute("genre", selectedGenre);
+        return "redirect:/books/genre/{genre}";
+    }
+
+    @PostMapping("/wishlist/remove/{bookId}")
     public String removeFromWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
-        wishlistService.removeBookFromWishlist(person,book);
+        wishlistService.removeBookFromWishlist(person, book);
         return "redirect:/wishlist";
     }
 
-    @PostMapping ("/wishlist/cart/add-book/{bookId}")
+    @PostMapping("/wishlist/cart/add-book/{bookId}")
     public String addToPurchases(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
-        purchaseService.addBookToPurchases(person,book);
-        wishlistService.removeBookFromWishlist(person,book);
+        purchaseService.addBookToPurchases(person, book);
+        wishlistService.removeBookFromWishlist(person, book);
         return "redirect:/wishlist";
     }
-
-
 }

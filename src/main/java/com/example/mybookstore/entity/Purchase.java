@@ -22,7 +22,6 @@ public class Purchase {
     @JoinColumn(name = "person_id")
     private Person person;
 
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "purchase_books",
             joinColumns = {@JoinColumn(name = "purchase_id", referencedColumnName = "id")},
@@ -34,10 +33,6 @@ public class Purchase {
     private LocalDate date;
 
     public Purchase() {
-    }
-
-    public boolean isClosed() {
-        return closed;
     }
 
     public String getFormattedDate() {

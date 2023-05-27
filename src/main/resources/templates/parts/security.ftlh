@@ -1,5 +1,4 @@
 <#assign known = Session.SPRING_SECURITY_CONTEXT??>
-
 <#if known>
     <#assign
     person = Session.SPRING_SECURITY_CONTEXT.authentication.principal
@@ -10,7 +9,6 @@
     >
 <#else>
     <#assign
-
     name = "Guest"
     openPurchase = ""
     wishes = ""
