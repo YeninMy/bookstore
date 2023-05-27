@@ -5,10 +5,7 @@ import com.example.mybookstore.entity.Book;
 import com.example.mybookstore.entity.Genre;
 import com.example.mybookstore.repository.BookRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import javax.persistence.criteria.Join;
@@ -22,13 +19,11 @@ public class BookService {
     private final BookRepo bookRepo;
     private final AuthorService authorService;
 
-    private final CommentService commentService;
 
     @Autowired
-    public BookService(BookRepo bookRepo, AuthorService authorService, CommentService commentService) {
+    public BookService(BookRepo bookRepo, AuthorService authorService) {
         this.bookRepo = bookRepo;
         this.authorService = authorService;
-        this.commentService = commentService;
     }
 
     public List<Book> getAllBooks() {
@@ -48,24 +43,26 @@ public class BookService {
 
     @Transactional
     public void saveBook(final Book book) {
-        List<Author> authors = new ArrayList<>();
-
         for (Author author : book.getAuthors()) {
+            List<Author> authors = new ArrayList<>();
+
             Author existingAuthor = authorService.findByName(author.getFirstName(), author.getLastName());
             if (existingAuthor != null) {
                 existingAuthor.getBooks().add(book);
                 authors.add(existingAuthor);
-
             } else {
                 author.getBooks().add(book);
                 authorService.saveAuthor(author);
                 authors.add(author);
             }
+
             book.setAuthors(authors);
             bookRepo.save(book);
         }
     }
-
+    public void updateBook(final Book book) {
+        bookRepo.save(book);
+    }
     public Book getBookById(int id) {
         return bookRepo.findBookById(id);
     }
@@ -99,6 +96,14 @@ public class BookService {
         return existingBooks;
     }
 
+    public Page<Book> getPagesBooksByGenre(Genre genre, Pageable pageable) {
+        List<Book> existingBooks = getBooksByGenre(genre);
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), existingBooks.size());
+
+        return new PageImpl<>(existingBooks.subList(start, end), pageable, existingBooks.size());
+    }
     public Book getRandomBook() {
         List<Book> books = getAllExistingBooks();
         Random random = new Random();
@@ -113,8 +118,7 @@ public class BookService {
         Specification<Book> spec = createBookSpecification(finalSearch);
         Pageable pageable = getPageable(finalSortBy, page, size);
 
-        Page<Book> allBooks = bookRepo.findAll(spec, pageable);
-        return allBooks;
+        return bookRepo.findAll(spec, pageable);
     }
 
     private String getSearchValue(String search, HttpSession session) {
@@ -137,6 +141,7 @@ public class BookService {
 
     private Specification<Book> createBookSpecification(final String finalSearch) {
         return (root, query, cb) -> {
+            query.distinct(true);
             List<Predicate> predicates = new ArrayList<>();
 
             if (finalSearch != null) {
@@ -146,7 +151,6 @@ public class BookService {
                 searchPredicates.add(cb.like(cb.lower(authorJoin.get("firstName")), "%" + finalSearch.toLowerCase() + "%"));
                 searchPredicates.add(cb.like(cb.lower(authorJoin.get("lastName")), "%" + finalSearch.toLowerCase() + "%"));
 
-                // check each genre
                 List<Predicate> genrePredicates = new ArrayList<>();
                 for (Genre genre : Genre.values()) {
                     if (genre.getDisplayName().toLowerCase().contains(finalSearch.toLowerCase())) {

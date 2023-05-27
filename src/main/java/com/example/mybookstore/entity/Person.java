@@ -3,13 +3,13 @@ package com.example.mybookstore.entity;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
-
 
 @Getter
 @Setter
@@ -51,7 +51,6 @@ public class Person
         this.email = email;
         this.password = password;
         this.roles = roles;
-
     }
 
     public String chosenBooks() {
@@ -60,12 +59,14 @@ public class Person
         }
         return String.valueOf(booksChosen);
     }
+
     public String wantedBooks() {
         if (booksWanted <= 0) {
             return "";
         }
         return String.valueOf(booksWanted);
     }
+
     public boolean isAdmin() {
         if (this.roles.contains(Role.ADMIN)) {
             return true;

@@ -31,9 +31,10 @@ public class PersonService implements UserDetailsService {
         return personRepo.findAllByEmail(email);
     }
 
-    public Person getPersonById(int id){
+    public Person getPersonById(int id) {
         return personRepo.getById(id);
     }
+
     public void savePerson(final Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRoles(Collections.singleton(Role.USER));

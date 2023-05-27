@@ -2,7 +2,6 @@ package com.example.mybookstore.controller;
 
 import com.example.mybookstore.entity.Book;
 import com.example.mybookstore.servise.BookService;
-import com.example.mybookstore.servise.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
@@ -10,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.servlet.http.HttpSession;
-
 
 @Controller
 @SessionAttributes("books")
@@ -20,7 +17,7 @@ public class BooksController {
     private final BookService bookService;
 
     @Autowired
-    public BooksController(BookService bookService, CommentService commentService) {
+    public BooksController(BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -48,6 +45,9 @@ public class BooksController {
     }
 
     private void addBookAttributesToModel(Model model, String search, String sortOption, int page, HttpSession session) {
+        if (sortOption == null) {
+            sortOption = "name";
+        }
         Page<Book> books = bookService.getSortedExistingBooks(search, sortOption, page, pageSize, session);
         model.addAttribute("books", books);
         model.addAttribute("search", search);

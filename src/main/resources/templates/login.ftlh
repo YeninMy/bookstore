@@ -1,16 +1,18 @@
 <#import "parts/common.ftlh" as common>
 <@common.page>
     <h1>Login</h1>
-    <form method="post" action="/login">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+    <br>
+    <form class="rf" method="post" action="/login">
+        <input class="form-control me-2 flex-grow-1" type="text" id="username" name="username" placeholder="Username"
+               required>
+        <input class="form-control me-2 flex-grow-1" type="password" id="password" name="password"
+               placeholder="Password" required>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button type="submit">Login</button>
+        <button class="btn btn-success custom-btn-width-3" type="submit">Submit</button>
     </form>
     <br>
     <p>Don't have an account yet? Rather join!</p>
-    <button onclick="location.href='/registration'" id="registration-button">Registration</button>
+    <button class="btn btn-outline-success custom-btn-width-3" onclick="location.href='/registration'"
+            id="registration-button" style="display: block; margin: auto;">Registration
+    </button>
 </@common.page>

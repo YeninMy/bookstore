@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -53,6 +55,13 @@ public class PurchaseController {
         Book book = bookService.getBookById(bookId);
         purchaseService.addBookToPurchases(person,book);
         return "redirect:/books";
+    }
+    @PostMapping ("/cart/add-book-genre/{bookId}")
+    public String addBookByGenreToPurchases(@AuthenticationPrincipal Person person, @PathVariable int bookId, @RequestParam String selectedGenre, RedirectAttributes redirectAttributes) {
+        Book book = bookService.getBookById(bookId);
+        purchaseService.addBookToPurchases(person,book);
+        redirectAttributes.addAttribute("genre", selectedGenre);
+        return "redirect:/books/genre/{genre}";
     }
     @PostMapping ("/cart/remove/{bookId}")
     public String removeFromPurchases(@AuthenticationPrincipal Person person, @PathVariable int bookId) {

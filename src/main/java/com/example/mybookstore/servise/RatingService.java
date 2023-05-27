@@ -15,15 +15,11 @@ public class RatingService {
         this.ratingRepo = ratingRepo;
     }
 
-    public void rateBook(Person person, Book book, double mark) {
-
+    public void rateBook(Person person, Book book, int mark) {
         Rating rating = ratingRepo.findByPersonAndBook(person, book).orElse(new Rating());
-
         rating.setPerson(person);
         rating.setBook(book);
         rating.setMark(mark);
-
         ratingRepo.save(rating);
     }
-
 }

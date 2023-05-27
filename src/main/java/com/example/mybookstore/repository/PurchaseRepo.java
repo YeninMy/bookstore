@@ -9,9 +9,8 @@ import java.util.List;
 
 @Repository
 public interface PurchaseRepo extends JpaRepository<Purchase, Integer> {
-    List<Purchase> findByPerson(Person person);
-
     Purchase findByPersonAndClosed(Person person, boolean closed);
+
     List<Purchase> findAllByPersonAndClosed(Person person, boolean closed);
 
 }

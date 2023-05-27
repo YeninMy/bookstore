@@ -7,7 +7,6 @@ import com.example.mybookstore.servise.BookService;
 import com.example.mybookstore.servise.CommentService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -22,16 +21,15 @@ public class AdminController {
     }
 
     @GetMapping("/admin-panel")
-    public String getAdminPage(Model model, @AuthenticationPrincipal Person user) {
+    public String getAdminPage(@AuthenticationPrincipal Person user) {
         if (user == null || !user.isAdmin()) {
             return "home";
         }
-
         return "admin";
     }
 
     @PostMapping("/add-book")
-    public String addBook(@ModelAttribute Book book, @AuthenticationPrincipal Person user, Model model) {
+    public String addBook(@ModelAttribute Book book, @AuthenticationPrincipal Person user) {
         if (user == null || !user.isAdmin()) {
             return "redirect:/";
         }

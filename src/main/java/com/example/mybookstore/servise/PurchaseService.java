@@ -36,6 +36,8 @@ public class PurchaseService {
         }
         openPurchase.getBooks().add(book);
         person.setBooksChosen(person.getBooksChosen()+1);
+        book.setQuantity(book.getQuantity()-1);
+        bookService.updateBook(book);
         personService.updatePerson(person);
         purchaseRepo.save(openPurchase);
     }
@@ -45,7 +47,8 @@ public class PurchaseService {
 
         openPurchase.getBooks().remove(book);
         person.setBooksChosen(person.getBooksChosen()-1);
-        bookService.saveBook(book);
+        book.setQuantity(book.getQuantity()+1);
+        bookService.updateBook(book);
         personService.updatePerson(person);
         purchaseRepo.save(openPurchase);
     }
@@ -56,23 +59,20 @@ public class PurchaseService {
             List<Book> boughtBooks = openPurchase.getBooks();
             for (Book book : boughtBooks) {
                 book.setQuantity(book.getQuantity()-1);
-                bookService.saveBook(book);
+                bookService.updateBook(book);
 
             }
             person.setBooksChosen(0);
             personService.updatePerson(person);
             purchaseRepo.save(openPurchase);
-
         }
     }
 
     public Purchase getOpenPurchaseByPerson(Person person) {
-
         return purchaseRepo.findByPersonAndClosed(person, false);
     }
 
     public List<Purchase> getClosedPurchaseByPerson(Person person) {
-
         return purchaseRepo.findAllByPersonAndClosed(person, true);
     }
 }

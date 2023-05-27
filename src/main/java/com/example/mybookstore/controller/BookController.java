@@ -46,12 +46,11 @@ public class BookController {
     }
 
     @PostMapping("/rate-book/{bookId}")
-    public String rateBook(@PathVariable int bookId, @AuthenticationPrincipal Person user, @RequestParam Double mark) {
+    public String rateBook(@PathVariable int bookId, @AuthenticationPrincipal Person user, @RequestParam int mark) {
         Book book = bookService.getBookById(bookId);
         ratingService.rateBook(user, book, mark);
 
         return "redirect:/books/book/" + bookId;
     }
-
 
 }

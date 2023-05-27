@@ -1,47 +1,44 @@
 <#import "parts/common.ftlh" as common>
 <@common.page>
-
     <h1>${user.username}</h1>
     <p>${user.email}</p>
-    <a href="/purchases" class="btn btn-primary">List of Purchases</a>
-
-
-
-    <button id="openModalButton2">Change Password</button>
+    <div class="button-container-2">
+        <a href="/purchases" class="btn btn-outline-success custom-btn-width-p">List of Purchases</a>
+        <button class="btn btn-outline-warning custom-btn-width-p" id="openModalButton2">Change Password</button>
+    </div>
     <#if errorOldPassword?? || errorNewPassword?? || errorPasswordConfirmation?? >
-        <div class="invalid-feedback" style="display: block; color: red;">
-            Errors, in form try again.
+        <div class="alert alert-danger" role="alert">
+            Errors in form, try again.
         </div>
     </#if>
-
     <div id="passwordModal" class="modal">
         <div class="modal-content">
             <form class="rf" method="post" action="/profile">
                 <h1>Change password:</h1>
-                <label for="old-password">Old Password:</label>
-                <input type="password" name="old-password" id="old-password"><br>
+                <br>
+                <input class="form-control me-2 flex-grow-1" placeholder="Old password" type="password"
+                       name="old-password" id="old-password">
                 <#if errorOldPassword??>
-                    <div class="invalid-feedback" style="display: block; color: red;">
+                    <div class="alert alert-danger" role="alert">
                         ${errorOldPassword}
                     </div>
                 </#if>
-
-                <label for="new-password">New password:</label>
-                <input type="password" name="new-password" id="new-password"><br>
+                <input class="form-control me-2 flex-grow-1" placeholder="New password" type="password"
+                       name="new-password" id="new-password">
                 <#if errorNewPassword??>
-                    <div class="invalid-feedback" style="display: block; color: red;">
+                    <div class="alert alert-danger" role="alert">
                         ${errorNewPassword}
                     </div>
                 </#if>
-                <label for="confirm-password">Confirm password:</label>
-                <input type="password" name="confirm-password" id="confirm-password"><br>
+                <input class="form-control me-2 flex-grow-1" placeholder="Confirm password" type="password"
+                       name="confirm-password" id="confirm-password">
                 <#if errorPasswordConfirmation??>
-                    <div class="invalid-feedback" style="display: block; color: red;">
+                    <div class="alert alert-danger" role="alert">
                         ${errorPasswordConfirmation}
                     </div>
                 </#if>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input type="submit" value="Change">
+                <input class="btn btn-outline-success custom-btn-width-2" type="submit" value="Change">
             </form>
         </div>
     </div>
@@ -52,7 +49,6 @@
         btn.onclick = function () {
             modal.style.display = "block";
         }
-
         window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
