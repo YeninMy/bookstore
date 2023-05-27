@@ -22,7 +22,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/registration")
-    public String getAllBooks() {
+    public String getRegistration() {
         return "registration";
     }
 

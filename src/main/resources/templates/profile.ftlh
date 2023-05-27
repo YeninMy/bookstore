@@ -6,7 +6,7 @@
         <a href="/purchases" class="btn btn-outline-success custom-btn-width-p">List of Purchases</a>
         <button class="btn btn-outline-warning custom-btn-width-p" id="openModalButton2">Change Password</button>
     </div>
-    <#if errorOldPassword?? || errorNewPassword?? || errorPasswordConfirmation?? >
+    <#if errorOldPasswordProfile?? || errorNewPasswordProfile?? || errorPasswordConfirmationProfile?? >
         <div class="alert alert-danger" role="alert">
             Errors in form, try again.
         </div>
@@ -18,23 +18,23 @@
                 <br>
                 <input class="form-control me-2 flex-grow-1" placeholder="Old password" type="password"
                        name="old-password" id="old-password">
-                <#if errorOldPassword??>
+                <#if errorOldPasswordProfile??>
                     <div class="alert alert-danger" role="alert">
-                        ${errorOldPassword}
+                        ${errorOldPasswordProfile}
                     </div>
                 </#if>
                 <input class="form-control me-2 flex-grow-1" placeholder="New password" type="password"
                        name="new-password" id="new-password">
-                <#if errorNewPassword??>
+                <#if errorNewPasswordProfile??>
                     <div class="alert alert-danger" role="alert">
-                        ${errorNewPassword}
+                        ${errorNewPasswordProfile}
                     </div>
                 </#if>
                 <input class="form-control me-2 flex-grow-1" placeholder="Confirm password" type="password"
                        name="confirm-password" id="confirm-password">
-                <#if errorPasswordConfirmation??>
+                <#if errorPasswordConfirmationProfile??>
                     <div class="alert alert-danger" role="alert">
-                        ${errorPasswordConfirmation}
+                        ${errorPasswordConfirmationProfile}
                     </div>
                 </#if>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>

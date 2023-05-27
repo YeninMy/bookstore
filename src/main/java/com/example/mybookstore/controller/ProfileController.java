@@ -33,22 +33,22 @@ public class ProfileController {
 
 
     @PostMapping("/profile")
-    public String AddPerson(Model model,
+    public String changePassword(Model model,
                             @RequestParam("old-password") String oldPassword,
                             @RequestParam("new-password") String newPassword,
                             @RequestParam("confirm-password") String confirmPassword,
                             @AuthenticationPrincipal Person user) {
         boolean hasErrors = false;
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            model.addAttribute("errorOldPassword", "Wrong password");
+            model.addAttribute("errorOldPasswordProfile", "Wrong password");
             hasErrors = true;
         }
         if (newPassword.trim().isEmpty()) {
-            model.addAttribute("errorNewPassword", "New password can't be empty");
+            model.addAttribute("errorNewPasswordProfile", "New password can't be empty");
             hasErrors = true;
         }
         if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("errorPasswordConfirmation", "Passwords do not match");
+            model.addAttribute("errorPasswordConfirmationProfile", "Passwords do not match");
             hasErrors = true;
         }
 

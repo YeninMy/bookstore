@@ -77,7 +77,7 @@ public class WishlistController {
     }
 
     @PostMapping("/wishlist/cart/add-book/{bookId}")
-    public String addToPurchases(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
+    public String addToPurchasesFromWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
         purchaseService.addBookToPurchases(person, book);
         wishlistService.removeBookFromWishlist(person, book);

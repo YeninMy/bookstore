@@ -37,5 +37,4 @@
         </div>
     </div>
 </nav>
-
 <#include "registration-form.ftlh">

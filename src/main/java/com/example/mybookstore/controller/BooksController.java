@@ -29,6 +29,9 @@ public class BooksController {
                               @RequestParam(defaultValue = "0") int page,
                               HttpSession session) {
         String sortOption = (String) session.getAttribute("sortOption");
+        if (sortOption == null) {
+            sortOption = "name";
+        }
         addBookAttributesToModel(model, search, sortOption, page, session);
         return "books";
     }
@@ -38,6 +41,9 @@ public class BooksController {
                             @RequestParam(required = false) String sortOption,
                             @RequestParam(defaultValue = "0") int page,
                             HttpSession session) {
+        if (sortOption == null) {
+            sortOption = "name";
+        }
         session.setAttribute("sortOption", sortOption);
         String search = (String) session.getAttribute("search");
         addBookAttributesToModel(model, search, sortOption, page, session);
@@ -55,5 +61,4 @@ public class BooksController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", books.getTotalPages());
     }
-
 }

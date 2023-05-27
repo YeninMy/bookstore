@@ -28,7 +28,7 @@ public class BookController {
     }
 
     @GetMapping("/books/book/{id}")
-    public String getBooksByGenre(@PathVariable int id, Model model) {
+    public String getBook(@PathVariable int id, Model model) {
         Book book = bookService.getBookById(id);
         List<Book> booksList = bookService.getBooksByGenre(book.getGenre());
         booksList.remove(book);
