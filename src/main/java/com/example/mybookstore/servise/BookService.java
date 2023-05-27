@@ -179,6 +179,8 @@ public class BookService {
             return PageRequest.of(page, size, Sort.by("price"));
         } else if (sortBy.equals("priceDesc")) {
             return PageRequest.of(page, size, Sort.by("price").descending());
+        }else if (sortBy.equals("rating")) {
+                return PageRequest.of(page, size, Sort.by("rating").descending());
         } else {
             return PageRequest.of(page, size);
         }

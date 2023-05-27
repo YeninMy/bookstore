@@ -25,6 +25,9 @@
                         <#case "priceDesc">
                             Price (High to Low)
                             <#break>
+                        <#case "rating">
+                            Rating
+                            <#break>
                     </#switch>
                 </#if>
             </button>
@@ -37,6 +40,7 @@
                             High)</a></li>
                     <li><a class="dropdown-item" id="sort-priceDesk" href="#" data-sort="priceDesc">Price (High to
                             Low)</a></li>
+                    <li><a class="dropdown-item" id="sort-rating" href="#" data-sort="rating">Average Rating</a></li>
                 </ul>
             </form>
         </div>
@@ -158,7 +162,7 @@
         </ul>
     </nav>
     <script>
-        document.querySelectorAll('#sort-name, #sort-priceAsk, #sort-priceDesk').forEach(item => {
+        document.querySelectorAll('#sort-name, #sort-priceAsk, #sort-priceDesk, #sort-rating').forEach(item => {
             item.addEventListener('click', function (e) {
                 e.preventDefault();
                 const sortOption = this.getAttribute('data-sort');

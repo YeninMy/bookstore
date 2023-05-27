@@ -38,7 +38,7 @@ public class Book {
     private List<Wishlist> wishlists = new ArrayList<>();
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
-
+    private int rating;
     public Book() {
     }
 
