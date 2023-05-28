@@ -62,8 +62,8 @@
         <#if book.getComments()?has_content>
             <h2>Comments:</h2>
             <#list book.getComments() as comment>
-                <p>${comment.person.username}</p>
-                <p>${comment.text}</p>
+                <p>${comment.person.username}:</p>
+                <p class="comment">${comment.text}</p>
                 <#if isAdmin>
                     <form class="d-flex mb-2" role="form" action="/delete-comment" method="post">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

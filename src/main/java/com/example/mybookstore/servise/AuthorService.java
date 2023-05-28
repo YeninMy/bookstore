@@ -14,10 +14,13 @@ public class AuthorService {
         this.authorRepo = authorRepo;
     }
 
-    public void saveAuthor(Author author){
+    public void saveAuthor(Author author) {
         authorRepo.save(author);
     }
 
+    /**
+     * Used to search for an author by first and last name.
+     */
     public Author findByName(String firstName, String lastName) {
         return authorRepo.findByFirstNameAndLastName(firstName, lastName);
     }

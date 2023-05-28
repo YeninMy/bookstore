@@ -9,5 +9,5 @@ import lombok.Setter;
 public class About {
     private String creator;
     private String Description;
-    private String cv;
+    private String contacts;
 }

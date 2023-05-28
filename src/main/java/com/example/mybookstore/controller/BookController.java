@@ -26,9 +26,11 @@ public class BookController {
         this.commentService = commentService;
         this.ratingService = ratingService;
     }
-
+    /**
+     * Returns a page with specific book.
+     */
     @GetMapping("/books/book/{id}")
-    public String getBooksByGenre(@PathVariable int id, Model model) {
+    public String getBook(@PathVariable int id, Model model) {
         Book book = bookService.getBookById(id);
         List<Book> booksList = bookService.getBooksByGenre(book.getGenre());
         booksList.remove(book);
@@ -37,14 +39,18 @@ public class BookController {
         model.addAttribute("books", books);
         return "book";
     }
-
+    /**
+     * Used to add a comment.
+     */
     @PostMapping("/new-comment/{bookId}")
     public String changeBookQuantity(@PathVariable int bookId, @AuthenticationPrincipal Person user, @RequestParam String comment) {
         Book book = bookService.getBookById(bookId);
         commentService.saveComment(user, book, comment);
         return "redirect:/books/book/" + bookId;
     }
-
+    /**
+     * Used to rate a book.
+     */
     @PostMapping("/rate-book/{bookId}")
     public String rateBook(@PathVariable int bookId, @AuthenticationPrincipal Person user, @RequestParam int mark) {
         Book book = bookService.getBookById(bookId);

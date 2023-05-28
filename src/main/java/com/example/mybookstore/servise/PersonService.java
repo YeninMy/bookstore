@@ -34,13 +34,17 @@ public class PersonService implements UserDetailsService {
     public Person getPersonById(int id) {
         return personRepo.getById(id);
     }
-
+    /**
+     * Used to save new user to the database.
+     */
     public void savePerson(final Person person) {
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRoles(Collections.singleton(Role.USER));
         personRepo.save(person);
     }
-
+    /**
+     * Used to update the data of an existing user.
+     */
     public void updatePerson(final Person person) {
         personRepo.save(person);
     }
@@ -53,7 +57,7 @@ public class PersonService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Person person = personRepo.findByUsername(username);
-        System.out.println("Loading user by username: " + username); // Добавьте эту строку для логирования
+        System.out.println("Loading user by username: " + username);
         if (person == null) {
             throw new UsernameNotFoundException("User not found");
         }

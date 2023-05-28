@@ -23,6 +23,9 @@ public class ProfileController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Returns a profile page.
+     */
     @GetMapping("/profile")
     public String getProfilePage(Model model, @AuthenticationPrincipal Person person) {
         if (person != null) {
@@ -31,24 +34,26 @@ public class ProfileController {
         return "profile";
     }
 
-
+    /**
+     * Used to change the password.
+     */
     @PostMapping("/profile")
-    public String AddPerson(Model model,
+    public String changePassword(Model model,
                             @RequestParam("old-password") String oldPassword,
                             @RequestParam("new-password") String newPassword,
                             @RequestParam("confirm-password") String confirmPassword,
                             @AuthenticationPrincipal Person user) {
         boolean hasErrors = false;
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            model.addAttribute("errorOldPassword", "Wrong password");
+            model.addAttribute("errorOldPasswordProfile", "Wrong password");
             hasErrors = true;
         }
         if (newPassword.trim().isEmpty()) {
-            model.addAttribute("errorNewPassword", "New password can't be empty");
+            model.addAttribute("errorNewPasswordProfile", "New password can't be empty");
             hasErrors = true;
         }
         if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("errorPasswordConfirmation", "Passwords do not match");
+            model.addAttribute("errorPasswordConfirmationProfile", "Passwords do not match");
             hasErrors = true;
         }
 

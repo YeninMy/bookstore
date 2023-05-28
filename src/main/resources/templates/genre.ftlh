@@ -28,10 +28,10 @@
                             ${book.authors?first.name()}
                         </#if>
                     </p>
-                      <#if book.genre?has_content>
-                    <p class="books-p">Genre:&nbsp; <a
-                                href="/books/genre/${book.genre}">${book.genre.getDisplayName()}</a></p>
-                      </#if>
+                    <#if book.genre?has_content>
+                        <p class="books-p">Genre:&nbsp; <a
+                                    href="/books/genre/${book.genre}">${book.genre.getDisplayName()}</a></p>
+                    </#if>
                     <#include "parts/rating.ftlh">
                     <p class="books-p">${book.price}&nbsp;UAH</p>
                 </div>

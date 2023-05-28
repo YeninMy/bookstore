@@ -21,7 +21,9 @@ public class WishlistService {
     public void saveWishlist(Wishlist wishlist) {
         wishlistRepo.save(wishlist);
     }
-
+    /**
+     * Used to add a book to wishlist.
+     */
     public void addBookToWishlist(Person person, Book book) {
 
         Wishlist wishlist = wishlistRepo.findByPerson(person);
@@ -35,7 +37,9 @@ public class WishlistService {
         personService.updatePerson(person);
         wishlistRepo.save(wishlist);
     }
-
+    /**
+     * Used to remove book from wishlist.
+     */
     public void removeBookFromWishlist(Person person, Book book) {
         Wishlist wishlist = wishlistRepo.findByPerson(person);
         wishlist.getBooks().remove(book);
@@ -43,7 +47,9 @@ public class WishlistService {
         personService.updatePerson(person);
         wishlistRepo.save(wishlist);
     }
-
+    /**
+     * Used to get user's wishlist.
+     */
     public Wishlist getWishlistByPerson(Person person) {
         return wishlistRepo.findByPerson(person);
     }

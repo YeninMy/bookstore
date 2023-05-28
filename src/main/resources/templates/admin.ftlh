@@ -1,7 +1,7 @@
 <#import "parts/common.ftlh" as common>
 <@common.page>
     <h2>Add a new book</h2>
-    <form class="rf" action="/add-book" method="post">
+    <form class="rf" action="/add-book" method="post" id="addBookForm">
         <input class="form-control me-2 flex-grow-1" placeholder="Name" type="text" name="name" id="name" required>
         <select class="form-control me-2 flex-grow-1" id="genre" name="genre" required>
             <option class="grey" disabled selected>Select Genre</option>
@@ -13,6 +13,8 @@
             <option value="HORROR">Horror</option>
             <option value="HISTORICAL_FICTION">Historical Fiction</option>
         </select>
+        <div id="genreError" class="alert alert-danger" role="alert" style="display: none;">
+        </div>
         <input class="form-control me-2 flex-grow-1" placeholder="Price in UAH" type="number" id="price" name="price"
                step="0.01" min="0" required>
 
@@ -55,5 +57,18 @@
             var div = document.getElementById('author' + index);
             div.remove();
         }
+    </script>
+    <script>
+        document.getElementById('addBookForm').addEventListener('submit', function(event) {
+            const genreSelect = document.getElementById('genre');
+            const genreError = document.getElementById('genreError');
+            if (genreSelect.value === 'Select Genre') {
+                event.preventDefault();
+                genreError.style.display = 'block';
+                genreError.textContent = 'Please select a genre.';
+            } else {
+                genreError.style.display = 'none';
+            }
+        });
     </script>
 </@common.page>

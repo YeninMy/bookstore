@@ -35,6 +35,9 @@ public class Purchase {
     public Purchase() {
     }
 
+    /**
+     * Used to format dates.
+     */
     public String getFormattedDate() {
         if (date == null) {
             return null;
