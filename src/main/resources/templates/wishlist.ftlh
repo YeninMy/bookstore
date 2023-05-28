@@ -30,10 +30,10 @@
                                 </#if>
                             </p>
                             <#if book.genre?has_content>
-                            <p class="books-p">Genre:&nbsp; <a
-                                        href="/books/genre/${book.genre}">${book.genre.getDisplayName()}</a></p>
-                            <#include "parts/rating.ftlh">
-                             </#if>
+                                <p class="books-p">Genre:&nbsp; <a
+                                            href="/books/genre/${book.genre}">${book.genre.getDisplayName()}</a></p>
+                                <#include "parts/rating.ftlh">
+                            </#if>
                             <p class="books-p">${book.price}&nbsp;UAH</p>
                         </div>
                         <div class="col-lg-3 col-sm-12 d-flex">
@@ -79,7 +79,6 @@
                     for (let i = 1; i < elements.length; i++) {
                         elements[i].style.display = 'none';
                     }
-
                     elements[0].querySelector('.book-count').textContent = ' x ' + bookCounts[bookId].count;
                 }
             }

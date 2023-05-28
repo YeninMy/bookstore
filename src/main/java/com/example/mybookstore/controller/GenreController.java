@@ -18,12 +18,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class GenreController {
 
     private final BookService bookService;
+
+    /**
+     * Change this number to change the number of books per page.
+     */
     private static final int pageSize = 3;
+
     @Autowired
     public GenreController(BookService bookService) {
         this.bookService = bookService;
     }
 
+    /**
+     * Returns a page with books by chosen genre.
+     */
     @GetMapping("/books/genre/{genre}")
     public String getBooksByGenre(@PathVariable String genre, Model model,
                                   @RequestParam(defaultValue = "0") int page) {

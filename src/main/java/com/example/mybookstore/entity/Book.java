@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -42,16 +41,6 @@ public class Book {
     public Book() {
     }
 
-
-    public Book(String name, List<Author> authors, Genre genre, double price, int quantity) {
-        this.name = name;
-        this.authors = authors;
-        this.genre = genre;
-        this.price = price;
-        this.quantity = quantity;
-
-    }
-
     public Book(String name, List<Author> authors, Genre genre, double price, int quantity, String coverImage) {
         this.name = name;
         this.authors = authors;
@@ -60,12 +49,16 @@ public class Book {
         this.quantity = quantity;
         this.coverImage = coverImage;
     }
-
+    /**
+     * Returns placeholder for book cover image.
+     */
     public String getPlaceHolder() {
-        String placeHolder = "https://drive.google.com/uc?export=view&id=1f39LJaI3PKC5uMorR3XcsW-oVtbEDeQA";
-        return placeHolder;
+        return "https://drive.google.com/uc?export=view&id=1f39LJaI3PKC5uMorR3XcsW-oVtbEDeQA";
     }
 
+    /**
+     * Used to format a google-drive link into a link to display a picture of a book.
+     */
     public String getDirectLinkToImage() {
         if (coverImage != null) {
             String fileId = null;
@@ -82,7 +75,9 @@ public class Book {
         }
         return null;
     }
-
+    /**
+     * Used to calculate the average rating of a book.
+     */
     public int averageRating() {
         double avgRating = ratings.stream()
                 .mapToDouble(Rating::getMark)

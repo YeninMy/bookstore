@@ -29,7 +29,9 @@ public class Author {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
+    /**
+     * Returns the author's full name.
+     */
     public String name(){
         String name = firstName +" "+ lastName;
         return name;

@@ -16,7 +16,9 @@ public class RatingService {
         this.ratingRepo = ratingRepo;
         this.bookService = bookService;
     }
-
+    /**
+     * Used to rate a book.
+     */
     public void rateBook(Person person, Book book, int mark) {
         Rating rating = ratingRepo.findByPersonAndBook(person, book).orElse(new Rating());
         rating.setPerson(person);

@@ -18,7 +18,9 @@ public enum Genre {
     public String getDisplayName() {
         return displayName;
     }
-
+    /**
+     * Returns the genre name as a string.
+     */
     public static String getDisplayNameForGenre(String genre) {
         try {
             return Genre.valueOf(genre.toUpperCase()).getDisplayName();

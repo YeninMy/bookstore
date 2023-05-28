@@ -52,21 +52,27 @@ public class Person
         this.password = password;
         this.roles = roles;
     }
-
+    /**
+     * Returns the number of books in the cart at the moment.
+     */
     public String chosenBooks() {
         if (booksChosen <= 0) {
             return "";
         }
         return String.valueOf(booksChosen);
     }
-
+    /**
+     * Returns the number of books in wishlist at the moment.
+     */
     public String wantedBooks() {
         if (booksWanted <= 0) {
             return "";
         }
         return String.valueOf(booksWanted);
     }
-
+    /**
+     * Used to check if a user is an admin.
+     */
     public boolean isAdmin() {
         if (this.roles.contains(Role.ADMIN)) {
             return true;

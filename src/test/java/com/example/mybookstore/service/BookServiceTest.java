@@ -60,6 +60,8 @@ public class BookServiceTest {
     @Test
     void shouldUpdateBook() {
         Book book = new Book();
+        Book book2 = new Book();
+        book2 = book;
 
         when(bookRepo.save(book)).thenReturn(book);
 

@@ -20,9 +20,13 @@ public class BooksController {
     public BooksController(BookService bookService) {
         this.bookService = bookService;
     }
-
+    /**
+     * Change this number to change the number of books per page.
+     */
     private static final int pageSize = 3;
-
+    /**
+     * Returns a page with all books.
+     */
     @GetMapping("/books")
     public String getAllBooks(Model model,
                               @RequestParam(required = false) String search,
@@ -32,7 +36,9 @@ public class BooksController {
         addBookAttributesToModel(model, search, sortOption, page, session);
         return "books";
     }
-
+    /**
+     * Returns a page with all books sorted.
+     */
     @GetMapping("/books/sort")
     public String sortBooks(Model model,
                             @RequestParam(required = false) String sortOption,
@@ -43,7 +49,9 @@ public class BooksController {
         addBookAttributesToModel(model, search, sortOption, page, session);
         return "books";
     }
-
+    /**
+     * Used to add attributes to previous methods.
+     */
     private void addBookAttributesToModel(Model model, String search, String sortOption, int page, HttpSession session) {
         if (sortOption == null) {
             sortOption = "name";

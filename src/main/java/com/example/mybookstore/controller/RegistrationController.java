@@ -21,11 +21,16 @@ public class RegistrationController {
         this.personService = personService;
     }
 
+    /**
+     * Returns a registration page.
+     */
     @GetMapping("/registration")
     public String getRegistration() {
         return "registration";
     }
-
+    /**
+     * Used for registration form.
+     */
     @PostMapping("/registration")
     public String AddPerson(@Valid Person person,
                             BindingResult bindingResult,

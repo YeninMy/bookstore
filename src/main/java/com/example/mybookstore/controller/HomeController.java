@@ -19,7 +19,9 @@ public class HomeController {
     public HomeController(BookService bookService) {
         this.bookService = bookService;
     }
-
+    /**
+     * Returns a home page.
+     */
     @GetMapping("/")
     public String getHomePage(Model model, @AuthenticationPrincipal Person user) {
         model.addAttribute("user", user);

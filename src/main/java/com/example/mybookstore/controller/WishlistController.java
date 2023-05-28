@@ -32,7 +32,9 @@ public class WishlistController {
 
         this.purchaseService = purchaseService;
     }
-
+    /**
+     * Returns a wishlist page.
+     */
     @GetMapping("/wishlist")
     public String wishlist(Model model, @AuthenticationPrincipal Person person) {
         Wishlist wishlist = wishlistService.getWishlistByPerson(person);
@@ -45,21 +47,27 @@ public class WishlistController {
         model.addAttribute("books", books);
         return "wishlist";
     }
-
+    /**
+     * Used to add a book to wishlist from a page with a specific book.
+     */
     @PostMapping("/wishlist/add/{bookId}")
     public String addToWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
         wishlistService.addBookToWishlist(person, book);
         return "redirect:/books/book/" + bookId;
     }
-
+    /**
+     * Used to add a book to wishlist from a page with all books.
+     */
     @PostMapping("/wishlist/add-book/{bookId}")
     public String addBookToWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
         wishlistService.addBookToWishlist(person, book);
         return "redirect:/books";
     }
-
+    /**
+     * Used to add a book to wishlist from a page with books by chosen genre.
+     */
     @PostMapping("/wishlist/add-book-genre/{bookId}")
     public String addBookByGenreToWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId,
                                            @RequestParam String selectedGenre, RedirectAttributes redirectAttributes) {
@@ -68,14 +76,18 @@ public class WishlistController {
         redirectAttributes.addAttribute("genre", selectedGenre);
         return "redirect:/books/genre/{genre}";
     }
-
+    /**
+     * Used to remove book from wishlist.
+     */
     @PostMapping("/wishlist/remove/{bookId}")
     public String removeFromWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
         wishlistService.removeBookFromWishlist(person, book);
         return "redirect:/wishlist";
     }
-
+    /**
+     * Used to add a book to the cart from wishlist.
+     */
     @PostMapping("/wishlist/cart/add-book/{bookId}")
     public String addToPurchasesFromWishlist(@AuthenticationPrincipal Person person, @PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);

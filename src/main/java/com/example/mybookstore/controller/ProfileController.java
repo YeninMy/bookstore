@@ -23,6 +23,9 @@ public class ProfileController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Returns a profile page.
+     */
     @GetMapping("/profile")
     public String getProfilePage(Model model, @AuthenticationPrincipal Person person) {
         if (person != null) {
@@ -31,7 +34,9 @@ public class ProfileController {
         return "profile";
     }
 
-
+    /**
+     * Used to change the password.
+     */
     @PostMapping("/profile")
     public String changePassword(Model model,
                             @RequestParam("old-password") String oldPassword,
